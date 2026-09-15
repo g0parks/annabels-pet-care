@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Leave Annabel's Pet Care a Review</title>
+
+  <!-- ==========================================================================
+       REVIEW REDIRECT — the QR code on printed material points HERE, not at Google.
+       This is the indirection layer: the printed link never changes, the
+       destination does. Nothing to reprint, no third-party shortener to rent.
+
+       TO ACTIVATE: once the Google Business Profile is verified, paste the review
+       link from the GMB dashboard into REVIEW_URL below and push. That's it.
+       Format is usually https://g.page/r/<PLACE_ID>/review
+       ========================================================================== -->
+  <script>
+    const REVIEW_URL = ''; // <-- paste the Google review link here
+
+    if (REVIEW_URL) {
+      window.location.replace(REVIEW_URL);
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose-primary: #B87383; --rose-hover: #9E5B6B;
+      --text-dark: #2B2527; --text-muted: #665E61;
+      --bg-cream: #FAF7F5; --border-subtle: #EBE1DC;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans); background: var(--bg-cream); color: var(--text-dark);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      max-width: 420px; text-align: center; background: #fff; padding: 48px 32px;
+      border-radius: 12px; border: 1px solid var(--border-subtle);
+      box-shadow: 0 8px 28px rgba(43, 37, 39, 0.06);
+    }
+    h1 { font-family: var(--font-serif); font-size: 2rem; font-weight: 600; margin-bottom: 12px; }
+    p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+    .btn {
+      display: inline-block; background: var(--rose-primary); color: #fff;
+      padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600;
+      font-size: 0.95rem; min-height: 44px;
+    }
+    .btn:hover { background: var(--rose-hover); }
+    .muted { font-size: 0.8rem; margin-top: 20px; margin-bottom: 0; }
+    .muted a { color: var(--rose-primary); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Thank you!</h1>
+    <p>
+      Anna's Google listing is being set up right now. Until it's live, the kindest
+      thing you can do is send her a note &mdash; she reads every one.
+    </p>
+    <a class="btn" href="sms:+19139405855">Text Anna</a>
+    <p class="muted"><a href="../">annabelspetcare.com</a></p>
+  </div>
+</body>
+</html>
