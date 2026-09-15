@@ -1,3 +1,7 @@
 # Internal planning — do NOT publish (this repo is public and serves GitHub Pages)
 CLAUDE.md
 docs/
+
+# Generated design output — rebuild with: node design/cards/build-preview.mjs
+design/cards/annabels-pet-care-cards.html
+design/cards/preview.html

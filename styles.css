@@ -600,3 +600,29 @@ a {
     display: none;
   }
 }
+
+/* Direct-contact number — added 2026-09-15 */
+.contact-direct {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  letter-spacing: 0.5px;
+}
+.contact-direct a { color: var(--rose-primary); }
+.contact-direct a:hover { color: var(--rose-hover); }
+
+.contact-or {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-contact {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.footer-contact a { color: var(--rose-light); }
+.footer-contact a:hover { color: var(--bg-white); }
