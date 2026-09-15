@@ -3,7 +3,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const CARDS = [
-  ['The card — C front / A back', 'Main.dc.html', 'Back.dc.html'],
+  ['Business card', 'Main.dc.html', 'Back.dc.html'],
+  ['Thank-you leave-behind', 'ThankYouFront.dc.html', 'ThankYouBack.dc.html'],
   ['Alternate — A front', 'FrontA.dc.html', null],
   ['Alternate — B', 'FrontB.dc.html', 'BackB.dc.html'],
   ['Alternate — C back', null, 'BackC.dc.html'],

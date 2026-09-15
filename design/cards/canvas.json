@@ -1,24 +1,136 @@
 {
   "pages": [
-    { "id": "page-1", "name": "The card" },
-    { "id": "page-2", "name": "Alternates" }
+    {
+      "id": "page-1",
+      "name": "Business card"
+    },
+    {
+      "id": "page-2",
+      "name": "Thank-you card"
+    },
+    {
+      "id": "page-3",
+      "name": "Alternates"
+    }
   ],
   "artboards": [
-    { "file": "Main.dc.html", "x": 0,   "y": 0, "w": 336, "h": 192, "title": "Front", "print": "fixed", "page": "page-1" },
-    { "file": "Back.dc.html", "x": 480, "y": 0, "w": 336, "h": 192, "title": "Back",  "print": "fixed", "page": "page-1" },
-
-    { "file": "FrontA.dc.html", "x": 0,   "y": 0,   "w": 336, "h": 192, "title": "A — Editorial Rose (front)", "print": "fixed", "page": "page-2" },
-    { "file": "FrontB.dc.html", "x": 480, "y": 0,   "w": 336, "h": 192, "title": "B — Sage Field (front)",     "print": "fixed", "page": "page-2" },
-    { "file": "BackB.dc.html",  "x": 480, "y": 320, "w": 336, "h": 192, "title": "B — Sage Field (back)",      "print": "fixed", "page": "page-2" },
-    { "file": "BackC.dc.html",  "x": 960, "y": 320, "w": 336, "h": 192, "title": "C — Quiet Rule (back)",      "print": "fixed", "page": "page-2" }
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 336,
+      "h": 192,
+      "title": "Front",
+      "print": "fixed",
+      "page": "page-1"
+    },
+    {
+      "file": "Back.dc.html",
+      "x": 480,
+      "y": 0,
+      "w": 336,
+      "h": 192,
+      "title": "Back",
+      "print": "fixed",
+      "page": "page-1"
+    },
+    {
+      "file": "ThankYouFront.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 336,
+      "h": 192,
+      "title": "Front",
+      "print": "fixed",
+      "page": "page-2"
+    },
+    {
+      "file": "ThankYouBack.dc.html",
+      "x": 480,
+      "y": 0,
+      "w": 336,
+      "h": 192,
+      "title": "Back",
+      "print": "fixed",
+      "page": "page-2"
+    },
+    {
+      "file": "FrontA.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 336,
+      "h": 192,
+      "title": "A — Editorial Rose (front)",
+      "print": "fixed",
+      "page": "page-3"
+    },
+    {
+      "file": "FrontB.dc.html",
+      "x": 480,
+      "y": 0,
+      "w": 336,
+      "h": 192,
+      "title": "B — Sage Field (front)",
+      "print": "fixed",
+      "page": "page-3"
+    },
+    {
+      "file": "BackB.dc.html",
+      "x": 480,
+      "y": 320,
+      "w": 336,
+      "h": 192,
+      "title": "B — Sage Field (back)",
+      "print": "fixed",
+      "page": "page-3"
+    },
+    {
+      "file": "BackC.dc.html",
+      "x": 960,
+      "y": 320,
+      "w": 336,
+      "h": 192,
+      "title": "C — Quiet Rule (back)",
+      "print": "fixed",
+      "page": "page-3"
+    }
   ],
   "annotations": [
-    { "id": "chosen", "x": 0, "y": -200, "w": 380, "page": "page-1",
-      "text": "Annabel's Pet Care — business card\n3.5 x 2in trim (336 x 192px at 96ppi).\n\nFront is direction C, back is direction A. The 4px rose rule\nwas carried from the front onto the back's left edge so the\ntwo read as one card — the only change to either." },
-    { "id": "tofix", "x": 480, "y": -200, "w": 380, "page": "page-1",
-      "text": "Before printing:\n• [QR] is a reserved box, not a real code. Generate it from the\n  Google review short link once the profile is verified.\n• No \"Insured\" line yet — add at reprint once PSA is bound.\n• Add the Park City address if the printer needs it for GMB proof.\n• Ask the printer for 0.125in bleed; keep type 0.125in off the trim." },
-    { "id": "alts", "x": 0, "y": -140, "w": 380, "page": "page-2",
-      "text": "Not chosen — kept for reference. Prices were removed from\nB's back on 2026-09-15; cards point to the site instead." }
+    {
+      "id": "biz",
+      "x": 0,
+      "y": -190,
+      "w": 380,
+      "page": "page-1",
+      "text": "Business card — for people who have NOT hired her yet.\n3.5 x 2in trim (336 x 192px at 96ppi).\n\nNo QR: the domain is already printed, so a QR to the same\nplace is redundant. Removing it let the back breathe.\nNo \"Insured\" line until the PSA policy is bound."
+    },
+    {
+      "id": "ty",
+      "x": 0,
+      "y": -190,
+      "w": 380,
+      "page": "page-2",
+      "text": "Thank-you leave-behind — given AFTER a completed job,\nwhen the client is happiest. This is the card that earns\nthe 15-25 Google reviews before November.\n\nThe ruled line is for Anna to handwrite the pet's name.\nThat handwriting is the point — don't set it in type."
+    },
+    {
+      "id": "qr",
+      "x": 480,
+      "y": -190,
+      "w": 380,
+      "page": "page-2",
+      "text": "QR encodes annabelspetcare.com/review — a redirect page\nin the repo that we control, NOT a Google URL.\n\nSo this card can print before the GMB exists. When the\nprofile verifies, paste the Google review link into\nREVIEW_URL in review/index.html and push. No reprint."
+    },
+    {
+      "id": "alts",
+      "x": 0,
+      "y": -140,
+      "w": 380,
+      "page": "page-3",
+      "text": "Not chosen — kept for reference."
+    }
   ],
-  "launch": { "view": "canvas", "page": "page-1" }
+  "launch": {
+    "view": "canvas",
+    "page": "page-2"
+  }
 }
