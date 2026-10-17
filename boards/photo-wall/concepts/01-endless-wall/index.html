@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-concept="01">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Annabel's Pet Care photo wall: Concept 01, Endless Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--rose:#B87383;--rose-d:#9E5B6B;--rose-l:#F7EFF1;--sage:#5B7568;--ink:#2B2527;--muted:#665E61;--cream:#FAF7F5;--line:#EBE1DC}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--cream);color:var(--ink);font:400 15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  #stage{position:fixed;inset:0;cursor:grab;touch-action:none;overflow:hidden;outline:none}
+  #stage.drag{cursor:grabbing}
+  #world{position:absolute;left:0;top:0;will-change:transform}
+  .cell{position:absolute;width:var(--cw);height:var(--ch);padding:7px}
+  .cell button{all:unset;display:block;width:100%;height:100%;border-radius:10px;overflow:hidden;background:var(--rose-l);cursor:inherit;box-shadow:0 1px 0 rgba(43,37,39,.04)}
+  .cell img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s ease, transform .35s ease;-webkit-user-drag:none;user-select:none}
+  .cell img.in{opacity:1}
+  .cell button:hover img{transform:scale(1.035)}
+  .cell button:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+  /* soft fade at edges so the wall feels endless */
+  .vignette{position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 70px 10px var(--cream)}
+  .card{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(250,247,245,.94);border:1px solid var(--line);border-radius:18px;padding:30px 36px 26px;text-align:center;box-shadow:0 24px 60px -30px rgba(43,37,39,.45);max-width:min(440px,88vw);pointer-events:none;transition:opacity .4s ease, transform .4s ease;z-index:5}
+  .card.gone{opacity:0;transform:translate(-50%,-46%);pointer-events:none}
+  .card .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-d);margin:0 0 8px;font-weight:600}
+  .card h1{font:500 clamp(30px,4vw,42px)/1.05 'Cormorant Garamond',Georgia,serif;margin:0 0 10px}
+  .card h1 em{font-style:italic;color:var(--rose-d)}
+  .card p{margin:0 0 16px;color:var(--muted)}
+  .card .hint{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--sage);font-weight:600}
+  .card .hint svg{width:18px;height:18px}
+  .draft{font-size:11px;color:#9a8f92;margin-top:12px}
+  .top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 22px;z-index:6;pointer-events:none}
+  .brand{pointer-events:auto;font:600 22px/1 'Cormorant Garamond',Georgia,serif;text-decoration:none;color:var(--ink);background:rgba(250,247,245,.9);padding:9px 14px;border-radius:999px;border:1px solid var(--line)}
+  .tools{pointer-events:auto;display:flex;gap:6px}
+  .tools button{all:unset;cursor:pointer;background:rgba(250,247,245,.92);border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:600;font-size:13px;color:var(--ink)}
+  .tools button:hover,.tools button:focus-visible{border-color:var(--rose);color:var(--rose-d)}
+  .count{position:fixed;right:22px;bottom:18px;z-index:6;background:rgba(250,247,245,.92);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--muted)}
+  .count b{color:var(--ink)}
+  @media (max-width:700px){.tools .hide-sm{display:none}.brand{font-size:19px}.count{bottom:62px;right:12px}}
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0" aria-label="Photo wall. Drag, scroll or use arrow keys to move around. Press Enter on a photo to open it.">
+  <div id="world"></div>
+</div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="#" onclick="return false">Annabel's Pet Care</a>
+  <div class="tools">
+    <button type="button" id="shuffle" class="hide-sm">Shuffle</button>
+    <button type="button" id="home">Center</button>
+  </div>
+</header>
+
+<section class="card" id="card" aria-labelledby="h">
+  <p class="eyebrow">The wall</p>
+  <h1 id="h">Every face here is a <em>real client</em>.</h1>
+  <p>Straight from house-sit updates and walk check-ins. Drag around to meet them.</p>
+  <span class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>Drag, swipe or scroll</span>
+  <p class="draft">[DRAFT copy] Photos are PLACEHOLDERS.</p>
+</section>
+
+<div class="count" aria-live="polite"><b id="n">0</b> photos on the wall</div>
+
+<script src="../../shared/tiles.js"></script>
+<script src="../../shared/lightbox.js"></script>
+<script>
+(function(){
+  var stage=document.getElementById("stage"), world=document.getElementById("world"), card=document.getElementById("card");
+  var photos=PW.photos.slice(), N=photos.length;
+  var small=matchMedia("(max-width:700px)").matches;
+  var CW=small?150:210, CH=Math.round(CW*1.25);
+  document.documentElement.style.setProperty("--cw",CW+"px");
+  document.documentElement.style.setProperty("--ch",CH+"px");
+  // Lay all N photos on a virtual grid that repeats in every direction (torus).
+  var COLS=Math.ceil(Math.sqrt(N*1.4)), ROWS=Math.ceil(N/COLS);
+  function photoAt(c,r){var cc=((c%COLS)+COLS)%COLS, rr=((r%ROWS)+ROWS)%ROWS; return (rr*COLS+cc)%N;}
+  // Columns are staggered by half a cell, every other one, so it reads as a wall not a spreadsheet.
+  function colOffset(c){return (((c%2)+2)%2)?CH/2:0;}
+
+  var x=0,y=0,vx=0,vy=0,cells={},pool=[];
+  function center(){x=-(COLS*CW)/2+innerWidth/2; y=-(ROWS*CH)/2+innerHeight/2;}
+  center();
+
+  // Thumbs are generated in a small per-frame queue (stands in for network lazy-loading of real thumbs).
+  var queue=[];
+  function pump(){ var t=performance.now(); while(queue.length&&performance.now()-t<10){ var im=queue.shift(); if(!im.isConnected||im.src)continue; im.src=PW.thumb(photos[+im.dataset.i]); im.classList.add("in"); } if(queue.length)PW.frame(pump); }
+  var io={observe:function(im){ queue.push(im); if(queue.length===1)PW.frame(pump); }, unobserve:function(){}};
+
+  function render(){
+    world.style.transform="translate3d("+x+"px,"+y+"px,0)";
+    var c0=Math.floor(-x/CW)-1, c1=Math.ceil((innerWidth-x)/CW)+1;
+    var r0=Math.floor(-y/CH)-2, r1=Math.ceil((innerHeight-y)/CH)+1;
+    var seen={};
+    for(var c=c0;c<=c1;c++)for(var r=r0;r<=r1;r++){
+      var k=c+","+r; seen[k]=1;
+      if(cells[k])continue;
+      var el=pool.pop()||mk();
+      var i=photoAt(c,r);
+      el.style.left=(c*CW)+"px"; el.style.top=(r*CH+colOffset(c))+"px";
+      var im=el.firstChild.firstChild; im.classList.remove("in");
+      im.removeAttribute("src"); im.dataset.i=i;
+      im.alt="Placeholder: "+(photos[i].kind==="dog"?"a dog":"a cat")+", "+PW.caption(photos[i]);
+      if(photos[i]._thumb){im.src=photos[i]._thumb; im.classList.add("in");} else io.observe(im);
+      el.firstChild.dataset.i=i;
+      world.appendChild(el); cells[k]=el;
+    }
+    for(var k2 in cells) if(!seen[k2]){ var e2=cells[k2]; io.unobserve(e2.firstChild.firstChild); e2.remove(); pool.push(e2); delete cells[k2]; }
+  }
+  function mk(){var d=document.createElement("div"); d.className="cell"; d.innerHTML='<button type="button"><img draggable="false"></button>'; return d;}
+
+  // Drag with inertia
+  var down=false,moved=0,lx=0,ly=0,lt=0,raf=0;
+  stage.addEventListener("pointerdown",function(e){down=true;moved=0;lx=e.clientX;ly=e.clientY;lt=performance.now();vx=vy=0;cancelAnimationFrame(raf);stage.setPointerCapture(e.pointerId);stage.classList.add("drag");});
+  stage.addEventListener("pointermove",function(e){ if(!down)return; var dx=e.clientX-lx,dy=e.clientY-ly,now=performance.now(),dt=Math.max(1,now-lt);
+    x+=dx;y+=dy;moved+=Math.abs(dx)+Math.abs(dy);vx=dx/dt*16;vy=dy/dt*16;lx=e.clientX;ly=e.clientY;lt=now; if(moved>8)card.classList.add("gone"); render();});
+  stage.addEventListener("pointerup",function(e){ down=false;stage.classList.remove("drag");
+    if(moved<6){ var b=document.elementFromPoint(e.clientX,e.clientY); b=b&&b.closest(".cell button"); if(b){ PW.lightbox(photos,+b.dataset.i); } return; }
+    if(!matchMedia("(prefers-reduced-motion: reduce)").matches) glide();});
+  function glide(){ vx*=.94;vy*=.94; x+=vx;y+=vy; render(); if(Math.abs(vx)+Math.abs(vy)>.3) raf=requestAnimationFrame(glide); }
+  stage.addEventListener("wheel",function(e){e.preventDefault(); x-=e.deltaX+(e.shiftKey?e.deltaY:0); if(!e.shiftKey)y-=e.deltaY; card.classList.add("gone"); render();},{passive:false});
+  stage.addEventListener("keydown",function(e){var s=CW; if(e.key==="ArrowLeft")x+=s; else if(e.key==="ArrowRight")x-=s; else if(e.key==="ArrowUp")y+=s; else if(e.key==="ArrowDown")y-=s;
+    else if(e.key==="Enter"&&document.activeElement.closest&&document.activeElement.closest(".cell button")){PW.lightbox(photos,+document.activeElement.dataset.i);return;} else return; e.preventDefault(); card.classList.add("gone"); render();});
+  // Tab into photos: clicking via keyboard on buttons
+  world.addEventListener("click",function(e){ if(e.detail===0){var b=e.target.closest(".cell button"); if(b)PW.lightbox(photos,+b.dataset.i);} });
+
+  document.getElementById("home").onclick=function(){center();card.classList.remove("gone");render();};
+  document.getElementById("shuffle").onclick=function(){ for(var i=photos.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=photos[i];photos[i]=photos[j];photos[j]=t;} for(var k in cells){cells[k].remove();pool.push(cells[k]);} cells={}; render(); };
+  addEventListener("resize",render);
+  render();
+  // count-up
+  var n=document.getElementById("n"),t0=performance.now();
+  (function tick(){var p=Math.min(1,(performance.now()-t0)/1400); n.textContent=Math.round(N*(1-Math.pow(1-p,3))); if(p<1)requestAnimationFrame(tick);})();
+})();
+</script>
+<script src="../../shared/board.js"></script>
+</body>
+</html>

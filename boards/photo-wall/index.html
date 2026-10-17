@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Annabel's Pet Care: Photo Wall Design Board, Round 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#FAF7F5;--ink:#2B2527;--muted:#665E61;--line:#EBE1DC;--card:#FFFFFF;--rose:#B87383;--rose-d:#9E5B6B;--rose-l:#F7EFF1;--sage:#5B7568}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font:400 16px/1.6 'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+  header.top{padding:52px 0 26px;border-bottom:1px solid var(--line)}
+  h1{font:500 clamp(36px,4.6vw,58px)/1.02 'Cormorant Garamond',Georgia,serif;margin:0}
+  h1 em{color:var(--rose-d)}
+  .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600}
+  .intro{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;padding:28px 0 6px}
+  .intro p{margin:0 0 12px;max-width:62ch}
+  .ph{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;background:rgba(43,37,39,.7);color:#fff;border-radius:999px;padding:2px 8px;vertical-align:2px}
+  .decide{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .decide h2{font:500 24px/1.2 'Cormorant Garamond',Georgia,serif;margin:0 0 10px}
+  .decide ol{margin:0;padding-left:20px}
+  .decide li{margin:0 0 6px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:26px;padding:34px 0 24px}
+  .concept{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease}
+  .concept:hover{transform:translateY(-2px);box-shadow:0 14px 34px -18px rgba(43,37,39,.35)}
+  .concept.rec{border-color:var(--rose);box-shadow:0 0 0 1px var(--rose)}
+  .thumb{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:var(--rose-l);border-bottom:1px solid var(--line)}
+  .thumb iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0;pointer-events:none}
+  .thumb::after{content:"";position:absolute;inset:0}
+  .meta{padding:18px 20px 20px;display:grid;gap:10px}
+  .meta .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .meta h3{font:500 28px/1.05 'Cormorant Garamond',Georgia,serif;margin:0}
+  .num{font-size:12px;letter-spacing:.14em;color:var(--muted)}
+  .rec .num{color:var(--rose-d);font-weight:600}
+  .meta p{margin:0;color:var(--muted);font-size:15px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tags span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted)}
+  .links{display:flex;gap:14px;font-size:14px;font-weight:600}
+  .links a{text-decoration:none;border-bottom:1px solid currentColor}
+  .links a.go{color:var(--rose-d)}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:13px}
+  .facts div{background:var(--paper);border-radius:8px;padding:6px 10px}
+  .facts b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:860px){.intro{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){.concept{transition:none}}
+  a:focus-visible{outline:2px solid var(--rose-d);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="kicker">Annabel's Pet Care · Photo wall · Design board, round 1</p>
+    <h1>Five ways to show <em>every real client</em></h1>
+  </header>
+
+  <section class="intro">
+    <div>
+      <p>Anna has hundreds of real client photos from walks and house sits. Each concept below is a working demo of a different way to put all of them on the site, so a visitor can see this is a real, busy, local business.</p>
+      <p>Every demo runs with 320 photos so you can feel the speed at real size. All photos are drawn <span class="ph">PLACEHOLDER</span> tiles with no pet names. Captions only show service, rough area and month, which is all the real version would show too.</p>
+      <p>Drag, scroll, pinch and click a photo in each one. Try them on a phone too.</p>
+    </div>
+    <aside class="decide">
+      <h2>What we're deciding</h2>
+      <ol>
+        <li>Which one feels most like Anna? Pick one, or one plus one (for example a homepage strip that opens the full wall).</li>
+        <li>Its own page (<em>/clients</em>) or a section on the homepage?</li>
+        <li>Is showing rough areas (SLC, Park City, Snyderville, Heber) OK with her? Never addresses.</li>
+        <li>Does she need to ask clients before their pet goes on the wall? (Suggested: yes, one text each.)</li>
+      </ol>
+    </aside>
+  </section>
+
+  <main class="grid" id="concepts"></main>
+
+  <footer>
+    <span>Draft for review. Unlinked test copy, not indexed.</span>
+    <span>Prepared for Parker &amp; Anna · October 2026</span>
+  </footer>
+</div>
+
+<script>
+  const CONCEPTS = [
+    { n:"01", slug:"01-endless-wall", name:"Endless Wall", rec:true,
+      line:"A full-screen grid that repeats forever in every direction. Drag, flick or scroll to wander; it glides with momentum. The closest thing to 'a huge wall you pan around'.",
+      facts:[["Phone","Swipe, glides"],["300+ photos","Fast, ~100 in DOM"],["Build","~1 day"]], tags:["Drag to pan","Infinite","Full page"] },
+    { n:"02", slug:"02-corkboard", name:"Corkboard", rec:false,
+      line:"Polaroids pinned and taped at slight angles on a cork board, with a note in the middle. Drag around, pinch or +/- to zoom. Warmest and most handmade.",
+      facts:[["Phone","Swipe + pinch"],["300+ photos","OK, culled to view"],["Build","~1.5 days"]], tags:["Polaroids","Zoomable","Most charming"] },
+    { n:"03", slug:"03-where-we-walk", name:"Where We Walk", rec:false,
+      line:"A soft illustrated map from Salt Lake to Park City and Heber. Photos cluster by rough area; tap an area to open its pets. Shows reach, never addresses.",
+      facts:[["Phone","Pinch map, sheet"],["300+ photos","Fine, small dots"],["Build","~2 days"]], tags:["Map","Service area","Privacy-sensitive"] },
+    { n:"04", slug:"04-masonry-counter", name:"Masonry + Counter", rec:false,
+      line:"A normal scrolling masonry wall with a live 'N pets cared for' counter, stats and filters (dogs, cats, area, house sits). Most conventional, easiest to maintain.",
+      facts:[["Phone","2 columns, scroll"],["300+ photos","Paged in 40s"],["Build","~0.5 day"]], tags:["Scroll","Filters","Counter"] },
+    { n:"05", slug:"05-drift", name:"Drift", rec:false,
+      line:"A homepage band of photos that drifts slowly sideways and pauses on hover; drag to steer, tap for a lightbox. Ambient, never asks for effort.",
+      facts:[["Phone","Swipe sideways"],["300+ photos","Fine, lazy ahead"],["Build","~0.5 day"]], tags:["Homepage section","Auto-drift","Lightbox"] }
+  ];
+  const grid = document.getElementById("concepts");
+  grid.innerHTML = CONCEPTS.map(c => `
+    <article class="concept${c.rec?" rec":""}">
+      <a class="thumb" href="concepts/${c.slug}/index.html" aria-label="Open concept ${c.n}, ${c.name}">
+        <iframe src="concepts/${c.slug}/index.html?chrome=0" title="${c.name} preview" tabindex="-1" aria-hidden="true"></iframe>
+      </a>
+      <div class="meta">
+        <div class="row"><h3>${c.name}</h3><span class="num">${c.rec?"RECOMMENDED · ":""}CONCEPT ${c.n}</span></div>
+        <p>${c.line}</p>
+        <div class="facts">${c.facts.map(f=>`<div><b>${f[0]}</b>${f[1]}</div>`).join("")}</div>
+        <div class="row">
+          <div class="tags">${c.tags.map(t=>`<span>${t}</span>`).join("")}</div>
+          <div class="links"><a class="go" href="concepts/${c.slug}/index.html">Open</a></div>
+        </div>
+      </div>
+    </article>`).join("");
+  function fit(){ document.querySelectorAll(".thumb").forEach(t=>{ t.querySelector("iframe").style.transform=`scale(${t.clientWidth/1440})`; }); }
+  addEventListener("resize", fit); fit();
+</script>
+</body>
+</html>

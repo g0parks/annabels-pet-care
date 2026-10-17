@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-concept="03">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Annabel's Pet Care photo wall: Concept 03, Where We Walk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--rose:#B87383;--rose-d:#9E5B6B;--rose-l:#F7EFF1;--sage:#5B7568;--ink:#2B2527;--muted:#665E61;--cream:#FAF7F5;--line:#EBE1DC}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#F3EEE6;color:var(--ink);font:400 15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  #stage{position:fixed;inset:0;cursor:grab;touch-action:none;overflow:hidden;outline:none}
+  #stage.drag{cursor:grabbing}
+  #map{position:absolute;left:0;top:0;width:1600px;height:1100px;transform-origin:0 0;will-change:transform}
+  #map svg{position:absolute;inset:0;width:100%;height:100%}
+  .lbl{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;fill:var(--ink)}
+  .sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;fill:var(--muted)}
+  .dot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;overflow:hidden;border:2px solid #FFFDF9;box-shadow:0 2px 6px rgba(43,37,39,.25);background:var(--rose-l);padding:0;cursor:pointer;transition:transform .2s ease}
+  .dot:hover,.dot:focus-visible{transform:scale(2.6);z-index:4;outline:none;box-shadow:0 0 0 2px var(--rose),0 8px 18px rgba(43,37,39,.3)}
+  .dot img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none}
+  .area{position:absolute;transform:translate(-50%,0);background:rgba(250,247,245,.95);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 16px;font-weight:600;font-size:14px;white-space:nowrap;cursor:pointer;box-shadow:0 6px 16px -8px rgba(43,37,39,.4);z-index:5;display:flex;gap:10px;align-items:center}
+  .area b{font:600 20px/1 'Cormorant Garamond',Georgia,serif}
+  .area span{color:var(--rose-d);font-size:13px}
+  .area:hover,.area:focus-visible{border-color:var(--rose);outline:none}
+  .intro{position:fixed;left:22px;top:84px;width:320px;background:rgba(250,247,245,.96);border:1px solid var(--line);border-radius:16px;padding:20px 22px;z-index:6;box-shadow:0 18px 40px -26px rgba(43,37,39,.5)}
+  .intro .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-d);margin:0 0 6px;font-weight:600}
+  .intro h1{font:500 32px/1.05 'Cormorant Garamond',Georgia,serif;margin:0 0 8px}
+  .intro p{margin:0 0 8px;color:var(--muted);font-size:14px}
+  .intro .priv{font-size:12px;color:var(--sage);font-weight:600}
+  .intro .draft{font-size:11px;color:#9a8f92;margin:0}
+  .top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 22px;z-index:7;pointer-events:none}
+  .brand{pointer-events:auto;font:600 22px/1 'Cormorant Garamond',Georgia,serif;background:rgba(250,247,245,.94);padding:9px 14px;border-radius:999px;border:1px solid var(--line)}
+  .tools{pointer-events:auto;display:flex;gap:6px}
+  .tools button{all:unset;cursor:pointer;background:rgba(250,247,245,.94);border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:600;font-size:13px}
+  .tools button:hover,.tools button:focus-visible{border-color:var(--rose);color:var(--rose-d)}
+  /* area drawer: right panel on desktop, bottom sheet on phones */
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--cream);border-left:1px solid var(--line);z-index:8;transform:translateX(102%);transition:transform .35s ease;display:flex;flex-direction:column;box-shadow:-20px 0 50px -30px rgba(43,37,39,.5)}
+  .drawer.on{transform:none}
+  .drawer header{padding:22px 22px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;border-bottom:1px solid var(--line)}
+  .drawer h2{font:500 32px/1 'Cormorant Garamond',Georgia,serif;margin:0 0 4px}
+  .drawer header p{margin:0;color:var(--muted);font-size:13px}
+  .drawer .x{all:unset;cursor:pointer;font-size:26px;line-height:1;width:40px;height:40px;display:grid;place-items:center;border-radius:50%}
+  .drawer .x:hover,.drawer .x:focus-visible{background:var(--rose-l)}
+  .drawer .grid{flex:1;overflow:auto;padding:14px;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:max-content;gap:8px;align-content:start}
+  .drawer .grid button{all:unset;display:block;cursor:pointer;border-radius:8px;overflow:hidden;background:var(--rose-l);min-height:0}
+  .drawer .grid button:focus-visible{outline:3px solid var(--rose)}
+  .drawer .grid img{width:100%;aspect-ratio:1/1;height:auto;object-fit:cover;display:block}
+  @media (max-width:700px){
+    .brand{font-size:18px;white-space:nowrap}.tools button{padding:9px 12px}
+    .intro{left:12px;right:12px;top:auto;bottom:62px;width:auto;padding:14px 16px}
+    .intro h1{font-size:24px}.intro p:not(.priv){display:none}
+    .drawer{top:auto;left:0;width:100%;height:72vh;border-left:0;border-top:1px solid var(--line);border-radius:18px 18px 0 0;transform:translateY(102%)}
+  }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0" aria-label="Map of Salt Lake City, Park City and Heber with pet photos grouped by rough area. Drag to move, scroll or pinch to zoom.">
+  <div id="map">
+    <svg viewBox="0 0 1600 1100" aria-hidden="true">
+      <defs>
+        <pattern id="topo" width="140" height="140" patternUnits="userSpaceOnUse">
+          <path d="M0 70 Q35 40 70 70 T140 70" fill="none" stroke="#E4DACB" stroke-width="1"/>
+          <path d="M0 110 Q35 85 70 110 T140 110" fill="none" stroke="#E9E0D3" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="1600" height="1100" fill="#F3EEE6"/>
+      <rect width="1600" height="1100" fill="url(#topo)"/>
+      <!-- Great Salt Lake edge (stylized) -->
+      <path d="M0 0 H180 Q230 120 170 230 Q120 330 60 360 L0 380 Z" fill="#DCE6EC"/>
+      <!-- Wasatch range: a band of soft ridges between the valley and the back -->
+      <path d="M520 0 C560 180 500 340 560 520 C610 700 560 900 600 1100 L760 1100 C720 900 760 700 720 520 C680 340 720 160 700 0 Z" fill="#E3E5DD"/>
+      <g fill="none" stroke="#C9CFC3" stroke-width="2" stroke-linecap="round">
+        <path d="M560 60 l30 -30 l26 34 l30 -40 l28 36"/><path d="M548 240 l34 -36 l24 30 l36 -44 l26 40"/>
+        <path d="M580 430 l30 -30 l28 30 l32 -40 l30 34"/><path d="M590 640 l34 -36 l28 30 l30 -42 l28 38"/>
+        <path d="M600 860 l28 -30 l30 32 l30 -40 l30 36"/>
+      </g>
+      <!-- Jordanelle + Deer Creek (stylized water) -->
+      <path d="M1320 640 q60 -30 110 10 q30 40 -20 70 q-70 20 -100 -20 q-15 -35 10 -60z" fill="#DCE6EC"/>
+      <path d="M1010 990 q40 -20 70 10 q10 40 -40 50 q-45 0 -40 -35z" fill="#DCE6EC"/>
+      <!-- Roads: I-15 north-south, I-80 through Parleys, SR-224 to Park City, US-40 south to Heber -->
+      <g fill="none" stroke="#FFFDF9" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M300 0 C300 300 310 700 300 1100"/>
+        <path d="M300 500 C450 480 560 420 660 380 C760 340 820 300 900 290 C1100 280 1300 280 1600 270"/>
+        <path d="M900 290 C980 360 1080 420 1130 500"/>
+        <path d="M960 285 C1040 420 1100 560 1150 680 C1190 780 1200 900 1210 1100"/>
+      </g>
+      <g fill="none" stroke="#D8C3A5" stroke-width="2">
+        <path d="M300 0 C300 300 310 700 300 1100"/>
+        <path d="M300 500 C450 480 560 420 660 380 C760 340 820 300 900 290 C1100 280 1300 280 1600 270"/>
+        <path d="M960 285 C1040 420 1100 560 1150 680 C1190 780 1200 900 1210 1100"/>
+      </g>
+      <text class="sub" x="315" y="90">I-15</text>
+      <text class="sub" x="680" y="350" transform="rotate(-22 680 350)">I-80 · Parleys</text>
+      <text class="sub" x="1380" y="262">I-80</text>
+      <text class="sub" x="1228" y="990" transform="rotate(84 1228 990)">US-40</text>
+      <text class="sub" x="600" y="1060">Wasatch</text>
+      <text class="lbl" x="1580" y="1075" text-anchor="end" font-size="22" fill="#9a8f92" font-style="italic">Not to scale. Areas only, never addresses.</text>
+    </svg>
+    <div id="dots"></div>
+  </div>
+</div>
+
+<header class="top">
+  <span class="brand">Annabel's Pet Care</span>
+  <div class="tools">
+    <button type="button" id="zo" aria-label="Zoom out">&minus;</button>
+    <button type="button" id="zi" aria-label="Zoom in">+</button>
+    <button type="button" id="home">Whole map</button>
+  </div>
+</header>
+
+<aside class="intro">
+  <p class="eyebrow">Where we walk</p>
+  <h1>Real clients, from the valley to the mountain.</h1>
+  <p>Every photo is a real visit, grouped by the area it happened in. Tap an area to see its pets.</p>
+  <p class="priv">Rough areas only. No street, no address.</p>
+  <p class="draft">[DRAFT copy] Photos are PLACEHOLDERS. Counts are placeholders too.</p>
+</aside>
+
+<section class="drawer" id="drawer" aria-label="Photos in this area" aria-hidden="true">
+  <header><div><h2 id="dh"></h2><p id="dp"></p></div><button class="x" id="dx" aria-label="Close">&times;</button></header>
+  <div class="grid" id="dg"></div>
+</section>
+
+<script src="../../shared/tiles.js"></script>
+<script src="../../shared/lightbox.js"></script>
+<script>
+(function(){
+  var stage=document.getElementById("stage"), map=document.getElementById("map"), dots=document.getElementById("dots");
+  var MW=1600, MH=1100;
+  // Hand-placed area centres on the stylized map. Not geocoded; deliberately coarse.
+  var CENTRES={slc:{x:330,y:500,r:.9},sny:{x:880,y:250,r:.8},pc:{x:1130,y:500,r:.9},heb:{x:1200,y:880,r:.85}};
+  var byArea={}; PW.AREAS.forEach(function(a){byArea[a.key]=[];});
+  PW.photos.forEach(function(p,i){byArea[p.areaKey].push(i);});
+
+  // Sunflower packing around each centre: reads as "a cluster", not as precise pins.
+  var all=[], GA=Math.PI*(3-Math.sqrt(5));
+  PW.AREAS.forEach(function(a){
+    var c=CENTRES[a.key], list=byArea[a.key];
+    list.forEach(function(pi,k){var rr=19*Math.sqrt(k+3)*c.r, th=k*GA; all.push({pi:pi,x:c.x+rr*Math.cos(th),y:c.y+rr*Math.sin(th)*.82,el:null});});
+    var tag=document.createElement("button"); tag.type="button"; tag.className="area";
+    var maxR=19*Math.sqrt(list.length+3)*c.r*.82;
+    tag.style.left=c.x+"px"; tag.style.top=(c.y+maxR+20)+"px";
+    tag.innerHTML="<b>"+a.name+"</b><span>"+list.length+" photos</span>";
+    tag.onclick=function(){openArea(a);};
+    map.appendChild(tag);
+  });
+
+  var queue=[];
+  function pump(){var t=performance.now();while(queue.length&&performance.now()-t<10){var d=queue.shift();if(d.el)d.el.firstChild.src=PW.thumb(PW.photos[d.pi]);}if(queue.length)PW.frame(pump);}
+  all.forEach(function(d){
+    var b=document.createElement("button"); b.type="button"; b.className="dot"; b.style.left=d.x+"px"; b.style.top=d.y+"px";
+    b.dataset.i=d.pi; b.setAttribute("aria-label","Placeholder photo: "+PW.caption(PW.photos[d.pi]));
+    b.innerHTML='<img alt="" draggable="false">'; dots.appendChild(b); d.el=b; queue.push(d);
+  });
+  PW.frame(pump);
+
+  var x=0,y=0,z=1;
+  function fitAll(){var L=innerWidth>900?360:0, s=Math.min((innerWidth-L-20)/MW,(innerHeight-20)/MH); z=Math.max(.3,s); x=L+(innerWidth-L-MW*z)/2; y=(innerHeight-MH*z)/2;}
+  fitAll();
+  function render(){map.style.transform="translate3d("+x+"px,"+y+"px,0) scale("+z+")";}
+  function zoom(f,cx,cy){cx=cx==null?innerWidth/2:cx;cy=cy==null?innerHeight/2:cy;var nz=Math.min(3,Math.max(.3,z*f));x=cx-(cx-x)*nz/z;y=cy-(cy-y)*nz/z;z=nz;render();}
+
+  var down=false,moved=0,lx,ly,pts={},pd=0;
+  stage.addEventListener("pointerdown",function(e){pts[e.pointerId]=e;down=true;moved=0;lx=e.clientX;ly=e.clientY;stage.setPointerCapture(e.pointerId);stage.classList.add("drag");});
+  stage.addEventListener("pointermove",function(e){if(!pts[e.pointerId])return;pts[e.pointerId]=e;var k=Object.keys(pts);
+    if(k.length===2){var a=pts[k[0]],b=pts[k[1]],d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(pd)zoom(d/pd,(a.clientX+b.clientX)/2,(a.clientY+b.clientY)/2);pd=d;moved=99;return;}
+    if(!down)return;var dx=e.clientX-lx,dy=e.clientY-ly;x+=dx;y+=dy;moved+=Math.abs(dx)+Math.abs(dy);lx=e.clientX;ly=e.clientY;render();});
+  function up(e){delete pts[e.pointerId];pd=0;if(!down)return;down=false;stage.classList.remove("drag");
+    if(moved<6){var t=document.elementFromPoint(e.clientX,e.clientY);if(!t)return;var dot=t.closest(".dot"),ar=t.closest(".area");
+      if(dot)PW.lightbox(PW.photos,+dot.dataset.i);else if(ar)ar.click();}}
+  stage.addEventListener("pointerup",up);stage.addEventListener("pointercancel",up);
+  stage.addEventListener("wheel",function(e){e.preventDefault();zoom(e.deltaY<0?1.12:1/1.12,e.clientX,e.clientY);},{passive:false});
+  stage.addEventListener("keydown",function(e){var s=120;if(e.key==="ArrowLeft")x+=s;else if(e.key==="ArrowRight")x-=s;else if(e.key==="ArrowUp")y+=s;else if(e.key==="ArrowDown")y-=s;else if(e.key==="+"||e.key==="=")return zoom(1.2);else if(e.key==="-")return zoom(1/1.2);else return;e.preventDefault();render();});
+  map.addEventListener("click",function(e){if(e.detail===0){var d=e.target.closest(".dot");if(d)PW.lightbox(PW.photos,+d.dataset.i);}});
+  document.getElementById("zi").onclick=function(){zoom(1.25)};
+  document.getElementById("zo").onclick=function(){zoom(1/1.25)};
+  document.getElementById("home").onclick=function(){fitAll();render();};
+
+  var drawer=document.getElementById("drawer"), dg=document.getElementById("dg");
+  function openArea(a){
+    var list=byArea[a.key].map(function(i){return PW.photos[i];});
+    document.getElementById("dh").textContent=a.name;
+    var dogs=list.filter(function(p){return p.kind==="dog"}).length;
+    document.getElementById("dp").textContent=list.length+" placeholder photos · "+dogs+" dogs, "+(list.length-dogs)+" cats";
+    dg.innerHTML=""; list.forEach(function(p,k){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Open "+PW.caption(p));b.innerHTML='<img alt="" src="'+PW.thumb(p)+'">';b.onclick=function(){PW.lightbox(list,k)};dg.appendChild(b);});
+    drawer.classList.add("on"); drawer.setAttribute("aria-hidden","false"); document.getElementById("dx").focus();
+    var c=CENTRES[a.key], nz=Math.min(1.6,Math.max(z,1.1)), visW=innerWidth>700?innerWidth-440:innerWidth, visH=innerWidth>700?innerHeight:innerHeight*.28;
+    z=nz; x=visW/2-c.x*z; y=visH/2+ (innerWidth>700?0:20)-c.y*z; render();
+  }
+  document.getElementById("dx").onclick=function(){drawer.classList.remove("on");drawer.setAttribute("aria-hidden","true");};
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&drawer.classList.contains("on")&&!document.querySelector(".pwlb.on"))document.getElementById("dx").click();});
+  addEventListener("resize",function(){fitAll();render();});
+  render();
+  if(new URLSearchParams(location.search).get("area")){var a=PW.AREAS.find(function(q){return q.key===new URLSearchParams(location.search).get("area")});if(a)openArea(a);}
+})();
+</script>
+<script src="../../shared/board.js"></script>
+</body>
+</html>

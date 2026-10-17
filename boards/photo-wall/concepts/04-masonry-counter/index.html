@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-concept="04">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Annabel's Pet Care photo wall: Concept 04, Masonry + Counter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--rose:#B87383;--rose-d:#9E5B6B;--rose-l:#F7EFF1;--sage:#5B7568;--ink:#2B2527;--muted:#665E61;--cream:#FAF7F5;--line:#EBE1DC}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--cream);color:var(--ink);font:400 15px/1.6 'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .top{position:sticky;top:0;z-index:5;background:rgba(250,247,245,.92);backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid var(--line)}
+  .top .in{max-width:1320px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .brand{font:600 24px/1 'Cormorant Garamond',Georgia,serif}
+  .live{display:flex;align-items:baseline;gap:8px;color:var(--muted);font-size:14px}
+  .live b{font:600 26px/1 'Cormorant Garamond',Georgia,serif;color:var(--rose-d);font-variant-numeric:tabular-nums;min-width:2.5ch;text-align:right}
+  header.hero{max-width:1320px;margin:0 auto;padding:56px 24px 18px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-d);margin:0 0 10px;font-weight:600}
+  h1{font:500 clamp(40px,5.4vw,72px)/1 'Cormorant Garamond',Georgia,serif;margin:0}
+  h1 .num{color:var(--rose-d);font-variant-numeric:tabular-nums}
+  .hero p{color:var(--muted);margin:0 0 6px;max-width:48ch}
+  .draft{font-size:12px;color:#9a8f92}
+  .stats{display:flex;gap:28px;margin-top:14px;flex-wrap:wrap}
+  .stats div{border-left:2px solid var(--line);padding-left:12px}
+  .stats b{display:block;font:600 30px/1 'Cormorant Garamond',Georgia,serif;font-variant-numeric:tabular-nums}
+  .stats span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .filters{max-width:1320px;margin:0 auto;padding:18px 24px 8px;display:flex;gap:8px;flex-wrap:wrap}
+  .filters button{all:unset;cursor:pointer;border:1px solid var(--line);background:#FFFDF9;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--muted)}
+  .filters button[aria-pressed="true"]{background:var(--rose);border-color:var(--rose);color:#fff}
+  .filters button:focus-visible{outline:2px solid var(--rose-d);outline-offset:2px}
+  .wall{max-width:1320px;margin:0 auto;padding:12px 24px 80px;columns:5 200px;column-gap:12px}
+  .tile{all:unset;display:block;break-inside:avoid;margin:0 0 12px;border-radius:10px;overflow:hidden;background:var(--rose-l);cursor:zoom-in;position:relative;opacity:0;transform:translateY(12px);transition:opacity .5s ease, transform .5s ease}
+  .tile.in{opacity:1;transform:none}
+  .tile img{display:block;width:100%;height:auto}
+  .tile .meta{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;font-size:12px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(43,37,39,.55));opacity:0;transition:opacity .2s}
+  .tile:hover .meta,.tile:focus-visible .meta{opacity:1}
+  .tile:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+  .more{text-align:center;color:var(--muted);font-size:13px;padding:0 0 60px}
+  @media (max-width:800px){header.hero{grid-template-columns:1fr;padding-top:32px;gap:16px}.wall{columns:2;column-gap:8px;padding:8px 10px 60px}.tile{margin-bottom:8px}.live span{display:none}}
+  @media (prefers-reduced-motion:reduce){.tile{transition:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <span class="brand">Annabel's Pet Care</span>
+  <span class="live" aria-live="polite"><b id="seen">0</b><span>of <span id="tot"></span> pets on the wall so far</span></span>
+</div></div>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">Real clients</p>
+    <h1><span class="num" id="big">0</span> pets cared for.<br>Every one of them is here.</h1>
+  </div>
+  <div>
+    <p>No stock photos. These come straight from walk check-ins and house-sit updates, newest first.</p>
+    <p class="draft">[DRAFT copy] Photos and counts are PLACEHOLDERS. The real number should come from Time To Pet / Rover, not from the photo count.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<nav class="filters" aria-label="Filter photos" id="filters"></nav>
+<main class="wall" id="wall" aria-label="Photo wall"></main>
+<p class="more" id="more"></p>
+
+<script src="../../shared/tiles.js"></script>
+<script src="../../shared/lightbox.js"></script>
+<script>
+(function(){
+  var wall=document.getElementById("wall"), all=PW.photos, cur=all, shown=0, BATCH=40;
+  var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("tot").textContent=all.length;
+
+  // counters
+  function countTo(el,n,ms){ if(reduced){el.textContent=n;return;} var t0=performance.now(); (function f(){var p=Math.min(1,(performance.now()-t0)/ms); el.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1)PW.frame(f);})(); }
+  countTo(document.getElementById("big"), all.length, 1600);
+  var dogs=all.filter(function(p){return p.kind==="dog"}).length;
+  var stats=[["Dogs",dogs],["Cats",all.length-dogs],["House sits",all.filter(function(p){return p.service==="House sit"}).length],["Areas",PW.AREAS.length]];
+  document.getElementById("stats").innerHTML=stats.map(function(s){return "<div><b data-n='"+s[1]+"'>0</b><span>"+s[0]+"</span></div>"}).join("");
+  document.querySelectorAll("#stats b").forEach(function(b){countTo(b,+b.dataset.n,1400);});
+
+  // filters
+  var F=[["All",null],["Dogs",function(p){return p.kind==="dog"}],["Cats",function(p){return p.kind==="cat"}]]
+    .concat(PW.AREAS.map(function(a){return [a.name,function(p){return p.areaKey===a.key}]}))
+    .concat([["House sits",function(p){return p.service==="House sit"}],["Trail hikes",function(p){return p.service==="Trail hike"}]]);
+  var fe=document.getElementById("filters");
+  F.forEach(function(f,i){var b=document.createElement("button");b.type="button";b.textContent=f[0];b.setAttribute("aria-pressed",i===0);
+    b.onclick=function(){fe.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");cur=f[1]?all.filter(f[1]):all;reset();};fe.appendChild(b);});
+
+  // reveal-as-you-scroll; a running "seen" counter in the header
+  var seenSet={}, seenEl=document.getElementById("seen");
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;t.classList.add("in");if(!seenSet[t.dataset.id]){seenSet[t.dataset.id]=1;seenEl.textContent=Object.keys(seenSet).length;}io.unobserve(t);}})},{rootMargin:"0px 0px -40px 0px"});
+  function add(n){
+    var frag=document.createDocumentFragment(), end=Math.min(cur.length,shown+n);
+    for(var i=shown;i<end;i++){(function(p,k){
+      var b=document.createElement("button");b.type="button";b.className="tile";b.dataset.id=p.id;
+      b.setAttribute("aria-label","Open placeholder photo: "+PW.caption(p));
+      var im=new Image(); im.alt=""; im.width=360; im.height=Math.round(360*p.h/p.w); im.src=PW.thumb(p);
+      b.appendChild(im); var m=document.createElement("span");m.className="meta";m.textContent=PW.caption(p);b.appendChild(m);
+      b.onclick=function(){PW.lightbox(cur,k)}; frag.appendChild(b); io.observe(b);
+    })(cur[i],i);}
+    wall.appendChild(frag); shown=end;
+    document.getElementById("more").textContent=shown<cur.length?"Scroll for more ("+(cur.length-shown)+" left)":"That's everyone. For now.";
+  }
+  function reset(){wall.innerHTML="";shown=0;add(BATCH);}
+  // infinite scroll in batches (real build: batches = paged JSON)
+  var sent=document.getElementById("more");
+  new IntersectionObserver(function(es){if(es[0].isIntersecting&&shown<cur.length)add(BATCH);},{rootMargin:"600px"}).observe(sent);
+  reset();
+})();
+</script>
+<script src="../../shared/board.js"></script>
+</body>
+</html>
