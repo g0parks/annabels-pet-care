@@ -7,7 +7,8 @@
     { id: "03", slug: "03-where-we-walk", name: "Where We Walk" },
     { id: "04", slug: "04-masonry-counter", name: "Masonry + Counter" },
     { id: "05", slug: "05-drift", name: "Drift" },
-    { id: "06", slug: "06-hero-wall", name: "Hero Wall" }
+    { id: "06", slug: "06-hero-wall", name: "Hero Wall" },
+    { id: "07", slug: "07-still-wall", name: "Still Wall" }
   ];
   var id = document.documentElement.getAttribute("data-concept") || "00";
   var params = new URLSearchParams(location.search);

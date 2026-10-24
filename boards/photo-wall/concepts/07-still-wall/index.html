@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-concept="07">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Annabel's Pet Care photo wall: Concept 07, Still Wall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- The LIVE site's stylesheet, read-only: this is the real header + hero + About, with only a still photo background added. -->
+  <link rel="stylesheet" href="../../../../styles.css">
+  <style>
+    /* ---- Still Wall: the only new CSS. The hero keeps its original size (padding 80/60, no min-height). ---- */
+    .hero.hero-still{position:relative;overflow:hidden;isolation:isolate}
+    .hs-bg{position:absolute;inset:-6px;z-index:-2;display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--cw),1fr));grid-auto-rows:var(--ch);gap:10px;pointer-events:none;opacity:0;transition:opacity .9s ease}
+    .hs-bg.ready{opacity:1}
+    .hs-bg img{width:100%;height:100%;object-fit:cover;display:block;border-radius:10px;background:var(--rose-light)}
+    .hs-bg img:nth-child(2n){transform:translateY(calc(var(--ch) / -2))}
+    .hs-wash{position:absolute;inset:0;z-index:-1;pointer-events:none}
+    [data-wash="soft"] .hs-wash{background:radial-gradient(ellipse 52% 70% at 50% 50%, rgba(250,247,245,.96) 0%, rgba(250,247,245,.9) 60%, rgba(250,247,245,.72) 100%)}
+    [data-wash="clear"] .hs-wash{background:radial-gradient(ellipse 40% 62% at 50% 50%, rgba(250,247,245,.97) 0%, rgba(250,247,245,.92) 55%, rgba(250,247,245,.35) 100%)}
+    .hero.hero-still::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40px;z-index:-1;pointer-events:none;background:linear-gradient(transparent,var(--bg-cream))}
+    .hs-ph{position:absolute;top:10px;right:14px;font-size:11px;font-weight:600;letter-spacing:.12em;background:rgba(43,37,39,.7);color:#fff;border-radius:999px;padding:3px 9px}
+    @media (max-width:768px){
+      [data-wash="soft"] .hs-wash,[data-wash="clear"] .hs-wash{background:rgba(250,247,245,.86)}
+    }
+    /* Review-only switch (not part of the design). */
+    .look{position:fixed;right:12px;bottom:12px;z-index:2147483000;display:flex;gap:4px;font:500 12px/1 ui-sans-serif,system-ui,sans-serif;background:rgba(43,37,39,.84);padding:5px;border-radius:999px}
+    .look button{all:unset;cursor:pointer;color:#fff;padding:7px 10px;border-radius:999px}
+    .look button.on{background:#fff;color:#111}
+    html.no-chrome .look{display:none}
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navigation (verbatim from site/index.html) -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-text">Annabel's <span class="logo-sub">Pet Care</span></span>
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#about" class="nav-link">About Anna</a>
+        <a href="#services" class="nav-link">Services & Rates</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#reviews" class="nav-link">Kind Words</a>
+        <a href="#service-area" class="nav-link">Areas Covered</a>
+        <a href="#contact" class="btn btn-primary nav-cta">Get in Touch</a>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Hero (verbatim from site/index.html); only the still background is new -->
+  <section class="hero hero-still">
+    <div class="hs-bg" id="hsBg" aria-hidden="true"></div>
+    <div class="hs-wash" aria-hidden="true"></div>
+    <span class="hs-ph" aria-hidden="true">PLACEHOLDER PHOTOS</span>
+
+    <div class="container hero-container">
+      <p class="hero-eyebrow">Park City & Heber Valley, Utah</p>
+      <h1 class="hero-title">Thoughtful, Vet-Trained Pet Care for Mountain Dogs & Cats</h1>
+      <p class="hero-subtitle">
+        Personalized dog walking, trail hikes, drop-in visits, and overnight house sitting. Vet-med trained and trusted by over 200 local families.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Schedule a Free Meet & Greet</a>
+        <a href="sms:+19139405855" class="btn btn-outline">Text Anna · (913) 940-5855</a>
+      </div>
+      <div class="hero-credentials">
+        <span>★ 220+ Verified 5-Star Reviews</span>
+        <span class="dot">•</span>
+        <span>12 Years of Experience</span>
+        <span class="dot">•</span>
+        <span>Vet-Med & CPR Certified</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Anna (verbatim from site/index.html) so the fold can be judged -->
+  <section id="about" class="section about-section">
+    <div class="container about-grid">
+      <div class="about-image-column">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <span>Anna Q.</span>
+            <small>Founder & Lead Caregiver</small>
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <h2 class="section-title">Hi, I'm Anna.</h2>
+        <p class="lead-text">
+          I'm 26 years old and have lived with and cared for animals my entire life. My work in professional pet care began at age 15 working at a doggy daycare, and I've been volunteering with local animal shelters ever since.
+        </p>
+        <p>
+          In high school, I completed the specialized CAPS Veterinary Medicine program, learning animal health, emergency response, and dog/cat CPR. Over the past 12 years—and with hundreds of dogs and cats cared for—I make sure to always go the extra mile to give your pets the love, attention, and quality care they deserve.
+        </p>
+        <p>
+          Whether your dog needs a midday walk, a long mountain hike, or dedicated care while you're away, I prioritize being available over the phone and sending photo updates so you always know your pets are in good hands.
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-item"><strong>12 Years</strong><span>Pet Care Experience</span></div>
+          <div class="highlight-item"><strong>73+</strong><span>Repeat Families</span></div>
+          <div class="highlight-item"><strong>Vet-Med</strong><span>CPR & Meds Competent</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="look" role="group" aria-label="Review: how much the photos show">
+    <button type="button" data-w="soft">Soft</button>
+    <button type="button" data-w="clear">Clear edges</button>
+  </div>
+
+<script src="../../shared/tiles.js"></script>
+<script>
+(function(){
+  var root=document.documentElement, params=new URLSearchParams(location.search);
+  if(params.get("chrome")==="0") root.classList.add("no-chrome");
+  var w=params.get("wash")||"soft"; root.dataset.wash=w;
+  document.querySelectorAll(".look button").forEach(function(b){
+    b.classList.toggle("on",b.dataset.w===w);
+    b.onclick=function(){root.dataset.wash=b.dataset.w;document.querySelectorAll(".look button").forEach(function(x){x.classList.toggle("on",x===b)});};
+  });
+
+  // Still background: one screen of photos, drawn once. No motion, no drag, nothing to pause.
+  // Real build: a single pre-made collage image (~150 KB WebP) instead of ~40 separate thumbs.
+  var bg=document.getElementById("hsBg"), small=matchMedia("(max-width:768px)").matches;
+  var CW=small?110:150, CH=Math.round(CW*1.25);
+  root.style.setProperty("--cw",CW+"px"); root.style.setProperty("--ch",CH+"px");
+  var hero=bg.parentNode, cols=Math.ceil(hero.clientWidth/(CW+10))+1, rows=Math.ceil(hero.clientHeight/(CH+10))+2;
+  // Shuffle once per visit so returning visitors see different faces.
+  var list=PW.photos.slice(); for(var i=list.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=list[i];list[i]=list[j];list[j]=t;}
+  var n=Math.min(list.length,cols*rows), k=0, frag=document.createDocumentFragment();
+  for(i=0;i<n;i++){var im=new Image();im.alt="";im.decoding="async";frag.appendChild(im);}
+  bg.appendChild(frag);
+  var imgs=bg.querySelectorAll("img");
+  (function pump(){var t0=performance.now();while(k<imgs.length&&performance.now()-t0<10){imgs[k].src=PW.thumb(list[k]);k++;} if(k<imgs.length)PW.frame(pump); else bg.classList.add("ready");})();
+})();
+</script>
+<script src="../../shared/board.js"></script>
+</body>
+</html>

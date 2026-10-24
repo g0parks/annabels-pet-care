@@ -104,7 +104,10 @@
       facts:[["Phone","Swipe sideways"],["300+ photos","Fine, lazy ahead"],["Build","~0.5 day"]], tags:["Homepage section","Auto-drift","Lightbox"] },
     { n:"06", slug:"06-hero-wall", name:"Hero Wall", rec:false,
       line:"Parker's pick: the Endless Wall drifting slowly behind the real homepage hero, with the live copy and buttons on a cream card on top. Drag to steer, tap a photo, pause button. Card is the default; Glow is the alternative (switch bottom-right).",
-      facts:[["Phone","Drifts; swipe sideways"],["300+ photos","Fast, ~100 in DOM"],["Build","~0.5–1 day"]], tags:["Homepage hero","Built from 01","Live copy"] }
+      facts:[["Phone","Drifts; swipe sideways"],["300+ photos","Fast, ~100 in DOM"],["Build","~0.5–1 day"]], tags:["Homepage hero","Built from 01","Live copy"] },
+    { n:"07", slug:"07-still-wall", name:"Still Wall", rec:false,
+      line:"The original homepage layout, untouched, with a still collage of client photos behind the hero. Same hero height as today, so 'Hi, I'm Anna' stays visible on landing (desktop). No motion. Soft or Clear edges (switch bottom-right).",
+      facts:[["Phone","Same as today"],["300+ photos","1 collage image"],["Build","~2 hours"]], tags:["Homepage hero","Original layout","Lightest"] }
   ];
   const grid = document.getElementById("concepts");
   grid.innerHTML = CONCEPTS.map(c => `
