@@ -101,7 +101,10 @@
       facts:[["Phone","2 columns, scroll"],["300+ photos","Paged in 40s"],["Build","~0.5 day"]], tags:["Scroll","Filters","Counter"] },
     { n:"05", slug:"05-drift", name:"Drift", rec:false,
       line:"A homepage band of photos that drifts slowly sideways and pauses on hover; drag to steer, tap for a lightbox. Ambient, never asks for effort.",
-      facts:[["Phone","Swipe sideways"],["300+ photos","Fine, lazy ahead"],["Build","~0.5 day"]], tags:["Homepage section","Auto-drift","Lightbox"] }
+      facts:[["Phone","Swipe sideways"],["300+ photos","Fine, lazy ahead"],["Build","~0.5 day"]], tags:["Homepage section","Auto-drift","Lightbox"] },
+    { n:"06", slug:"06-hero-wall", name:"Hero Wall", rec:false,
+      line:"Parker's pick: the Endless Wall drifting slowly behind the real homepage hero, with the live copy and buttons on a cream card on top. Drag to steer, tap a photo, pause button. Card is the default; Glow is the alternative (switch bottom-right).",
+      facts:[["Phone","Drifts; swipe sideways"],["300+ photos","Fast, ~100 in DOM"],["Build","~0.5–1 day"]], tags:["Homepage hero","Built from 01","Live copy"] }
   ];
   const grid = document.getElementById("concepts");
   grid.innerHTML = CONCEPTS.map(c => `
