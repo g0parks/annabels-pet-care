@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06 Hero Wall (real photos) | Annabel's Pet Care</title>
+  <meta name="description" content="Thoughtful, vet-trained pet care in Park City & Heber Valley. Dog walking, mountain trail hikes, drop-in visits, and overnight house sitting.">
+  
+  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../../../styles.css">
+<style>/* 06 Hero Wall */
+    .hero.hero-wall{background:var(--bg-cream)} /* don't inherit 07's collage once styles.css ships it */
+    /* ---- Hero Wall: everything below is the only new CSS the site would need ---- */
+    .hero.hero-wall{position:relative;overflow:hidden;isolation:isolate;min-height:min(88vh,760px);display:flex;align-items:center;padding:96px 0 84px}
+    .hw-stage{position:absolute;inset:0;z-index:-2;cursor:grab;touch-action:pan-y;opacity:0;transition:opacity 1.2s ease}
+    .hw-stage.ready{opacity:1}
+    .hw-stage.drag{cursor:grabbing}
+    .hw-world{position:absolute;left:0;top:0;will-change:transform}
+    .hw-cell{position:absolute;width:var(--cw);height:var(--ch);padding:6px}
+    .hw-cell img{width:100%;height:100%;object-fit:cover;display:block;border-radius:10px;background:var(--rose-light);-webkit-user-drag:none;user-select:none;opacity:0;transition:opacity .5s ease}
+    .hw-cell img.in{opacity:1}
+    /* Readability layer. "scrim" = cream glow behind the text; "card" = text sits on a cream card. */
+    .hw-scrim{position:absolute;inset:0;z-index:-1;pointer-events:none}
+    [data-look="scrim"] .hw-scrim{background:
+      radial-gradient(ellipse 46% 58% at 50% 50%, rgba(250,247,245,.95) 0%, rgba(250,247,245,.9) 55%, rgba(250,247,245,.5) 100%),
+      linear-gradient(rgba(250,247,245,.25),rgba(250,247,245,.25))}
+    [data-look="card"] .hw-scrim{background:rgba(250,247,245,.18)}
+    [data-look="card"] .hero-container{background:rgba(250,247,245,.95);border:1px solid var(--border-subtle);border-radius:18px;padding:44px 48px 36px;box-shadow:0 30px 70px -40px rgba(43,37,39,.55)}
+    .hero.hero-wall::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;z-index:-1;pointer-events:none;background:linear-gradient(transparent,var(--bg-cream))}
+    /* Text block lets drags fall through to the wall, except on the actual text and buttons. */
+    .hero-wall .hero-container{position:relative;pointer-events:none}
+    .hero-wall .hero-container > *{pointer-events:auto}
+    .hw-more{position:absolute;right:20px;bottom:18px;z-index:2;display:inline-flex;align-items:center;gap:8px;background:rgba(250,247,245,.94);border:1px solid var(--border-subtle);border-radius:999px;padding:8px 14px;font-size:.85rem;font-weight:600;color:var(--text-dark)}
+    .hw-more:hover{color:var(--rose-hover);border-color:var(--rose-primary)}
+    .hw-pause{all:unset;position:absolute;left:20px;bottom:18px;z-index:2;cursor:pointer;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(250,247,245,.94);border:1px solid var(--border-subtle);color:var(--text-dark);font-size:12px}
+    .hw-pause:focus-visible,.hw-more:focus-visible{outline:2px solid var(--rose-primary);outline-offset:2px}
+    .hw-ph{position:absolute;top:12px;right:16px;z-index:2;font-size:11px;font-weight:600;letter-spacing:.12em;background:rgba(43,37,39,.7);color:#fff;border-radius:999px;padding:3px 9px}
+    @media (max-width:768px){
+      .hero.hero-wall{min-height:auto;padding:64px 0 76px}
+      [data-look="scrim"] .hw-scrim{background:radial-gradient(ellipse 80% 55% at 50% 48%, rgba(250,247,245,.95) 0%, rgba(250,247,245,.9) 60%, rgba(250,247,245,.6) 100%)}
+      [data-look="card"] .hero-container{padding:28px 20px 24px;margin:0 14px;width:auto}
+      .hw-more{right:12px;bottom:14px}.hw-pause{left:12px;bottom:14px}
+    }
+    /* Review-only switch (not part of the design). */
+    .look{position:fixed;right:12px;bottom:12px;z-index:2147483000;display:flex;gap:4px;font:500 12px/1 ui-sans-serif,system-ui,sans-serif;background:rgba(43,37,39,.84);padding:5px;border-radius:999px}
+    .look button{all:unset;cursor:pointer;color:#fff;padding:7px 10px;border-radius:999px}
+    .look button.on{background:#fff;color:#111}
+    html.no-chrome .look{display:none}
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-text">Annabel's <span class="logo-sub">Pet Care</span></span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#about" class="nav-link">About Anna</a>
+        <a href="#services" class="nav-link">Services & Rates</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#reviews" class="nav-link">Kind Words</a>
+        <a href="#service-area" class="nav-link">Areas Covered</a>
+        <a href="#contact" class="btn btn-primary nav-cta">Get in Touch</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero hero-wall" id="hero">
+    <div class="hw-stage" id="hwStage" aria-hidden="true"><div class="hw-world" id="hwWorld"></div></div>
+    <div class="hw-scrim" aria-hidden="true"></div>
+
+    <div class="container hero-container">
+      <p class="hero-eyebrow">Park City & Heber Valley, Utah</p>
+      <h1 class="hero-title">Thoughtful, Vet-Trained Pet Care for Mountain Dogs & Cats</h1>
+      <p class="hero-subtitle">
+        Personalized dog walking, trail hikes, drop-in visits, and overnight house sitting. Vet-med trained and trusted by over 200 local families.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Schedule a Free Meet & Greet</a>
+        <a href="sms:+19139405855" class="btn btn-outline">Text Anna · (913) 940-5855</a>
+      </div>
+      <div class="hero-credentials">
+        <span>★ 220+ Verified 5-Star Reviews</span>
+        <span class="dot">•</span>
+        <span>12 Years of Experience</span>
+        <span class="dot">•</span>
+        <span>Vet-Med & CPR Certified</span>
+      </div>
+    </div>
+
+    <button type="button" class="hw-pause" id="hwPause" aria-label="Pause the moving photos">&#10074;&#10074;</button>
+  </section>
+
+  <!-- About Anna Section -->
+  <section id="about" class="section about-section">
+    <div class="container about-grid">
+      <div class="about-image-column">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <span>Anna Q.</span>
+            <small>Founder & Lead Caregiver</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <h2 class="section-title">Hi, I'm Anna.</h2>
+        
+        <p class="lead-text">
+          I'm 26 years old and have lived with and cared for animals my entire life. My work in professional pet care began at age 15 working at a doggy daycare, and I've been volunteering with local animal shelters ever since.
+        </p>
+
+        <p>
+          In high school, I completed the specialized CAPS Veterinary Medicine program, learning animal health, emergency response, and dog/cat CPR. Over the past 12 years—and with hundreds of dogs and cats cared for—I make sure to always go the extra mile to give your pets the love, attention, and quality care they deserve.
+        </p>
+
+        <p>
+          Whether your dog needs a midday walk, a long mountain hike, or dedicated care while you're away, I prioritize being available over the phone and sending photo updates so you always know your pets are in good hands.
+        </p>
+
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <strong>12 Years</strong>
+            <span>Pet Care Experience</span>
+          </div>
+          <div class="highlight-item">
+            <strong>73+</strong>
+            <span>Repeat Families</span>
+          </div>
+          <div class="highlight-item">
+            <strong>Vet-Med</strong>
+            <span>CPR & Meds Competent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services & Rates Section -->
+  <section id="services" class="section services-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Services & Rates</h2>
+        <p class="section-subtitle">
+          Transparent pricing with no hidden fees.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        
+        <div class="service-card">
+          <h3 class="service-title">30-Minute Walk</h3>
+          <p class="service-desc">
+            A neighborhood walk tailored to your dog's pace. Great for midday energy, fresh air, and attention.
+          </p>
+          <div class="service-price">$35 <span>/ visit</span></div>
+        </div>
+
+        <div class="service-card">
+          <h3 class="service-title">60-Minute Walk</h3>
+          <p class="service-desc">
+            An extended walk for high-energy dogs who need extra movement and exploring.
+          </p>
+          <div class="service-price">$55 <span>/ visit</span></div>
+        </div>
+
+        <div class="service-card">
+          <h3 class="service-title">90-Min Trail Hike</h3>
+          <p class="service-desc">
+            Guided trail hike along local Park City & Heber mountain trails for active, outdoorsy dogs.
+          </p>
+          <div class="service-price">$75 <span>/ hike</span></div>
+        </div>
+
+        <div class="service-card">
+          <h3 class="service-title">Drop-In Visit</h3>
+          <p class="service-desc">
+            20–25 minute check-in for dogs or cats. Includes feeding, fresh water, potty break or litter box care, and playtime.
+          </p>
+          <div class="service-price">$28 <span>/ visit</span></div>
+        </div>
+
+        <div class="service-card">
+          <h3 class="service-title">Overnight House Sitting</h3>
+          <p class="service-desc">
+            Dedicated overnight care in your home so your pets keep their familiar routine while you travel.
+          </p>
+          <div class="service-price">$95–$125 <span>/ night</span></div>
+        </div>
+
+        <div class="service-card">
+          <h3 class="service-title">Specialized Care</h3>
+          <p class="service-desc">
+            Puppy visits, senior pet care, special needs support, and oral or injected medication administration.
+          </p>
+          <div class="service-price">Custom <span>quote</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery / Instagram Feed Showcase Section -->
+  <section id="gallery" class="section gallery-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Life on the Trail & At Home</h2>
+        <p class="section-subtitle">
+          A glimpse at some of the happy pups and sweet kitties Anna cares for across Park City and Heber Valley.
+        </p>
+      </div>
+
+      <!-- Photo Carousel / Grid -->
+      <div class="photo-gallery-grid">
+        <div class="gallery-item photo-1">
+          <div class="gallery-caption">Cooper on his morning trail walk 🌲</div>
+        </div>
+        <div class="gallery-item photo-2">
+          <div class="gallery-caption">Midday snuggles with Luna 💛</div>
+        </div>
+        <div class="gallery-item photo-3">
+          <div class="gallery-caption">Golden hour mountain hike ✨</div>
+        </div>
+        <div class="gallery-item photo-4">
+          <div class="gallery-caption">Cat drop-in visit & playtime 🐱</div>
+        </div>
+      </div>
+
+      <div class="social-connect text-center">
+        <p>Follow along on Instagram for daily updates & story highlights:</p>
+        <a href="https://instagram.com/annabelspetcare" target="_blank" rel="noopener" class="btn btn-outline">
+          📷 Follow @annabelspetcare on Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews" class="section reviews-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Kind Words from Local Pet Parents</h2>
+      </div>
+
+      <div class="reviews-grid">
+        
+        <div class="review-card">
+          <p class="review-text">
+            "Anna is honestly the best! She walked in to my house finding that my dog had pulled some stitches out. She got a hold of my emergency contact right away and offered to take him to the vet if needed! She cares so much, I couldn’t have appreciated her more!"
+          </p>
+          <div class="review-author">
+            <strong>Haley C.</strong>
+            <span>Park City</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <p class="review-text">
+            "Anna was excellent at caring for my older cat with kidney disease. She was punctual, communicative, and reliable. She sent a lot of photos with each check in. I would definitely recommend her to anyone!"
+          </p>
+          <div class="review-author">
+            <strong>Lisa B.</strong>
+            <span>Park City</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <p class="review-text">
+            "I cannot say enough good things about Anna! She is incredibly reliable and I feel comfortable leaving my boys in her care. If she has availability to look after your pet, book her!!"
+          </p>
+          <div class="review-author">
+            <strong>Lydia L.</strong>
+            <span>Heber Valley</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area -->
+  <section id="service-area" class="section area-section">
+    <div class="container text-center">
+      <h2 class="section-title">Service Coverage</h2>
+      <p class="area-text">
+        Serving <strong>Park City, Deer Valley, Snyderville Basin, Kimball Junction, Park Meadows, Pinebrook, Jeremy Ranch, Heber City, and Midway</strong>.
+      </p>
+      <p class="sub-text">
+        Visiting Park City for vacation or ski season? In-home house sitting and daily visits are available directly at your rental or resort home.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section contact-section">
+    <div class="container contact-container">
+      <div class="contact-header text-center">
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-subtitle">
+          Ready to schedule a free meet & greet? Text or call Anna directly &mdash;
+          she answers texts fastest.
+        </p>
+        <p class="contact-direct">
+          <a href="sms:+19139405855">(913) 940-5855</a>
+        </p>
+        <p class="contact-or">or send the details below</p>
+      </div>
+
+      <form class="contact-form" id="bookingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ownerName">Your Name</label>
+            <input type="text" id="ownerName" name="ownerName" placeholder="Sarah Jenkins" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="petName">Pet Name(s) & Breed</label>
+            <input type="text" id="petName" name="petName" placeholder="Cooper (Golden Retriever)" required>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Requested</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service...</option>
+              <option value="30m-walk">30-Min Neighborhood Walk ($35)</option>
+              <option value="60m-walk">60-Min Extended Walk ($55)</option>
+              <option value="90m-hike">90-Min Mountain Trail Hike ($75)</option>
+              <option value="drop-in">Drop-In Visit ($28)</option>
+              <option value="overnight">Overnight Sitting ($95–$125)</option>
+              <option value="other">Other / Specialized Care</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dates">Dates or Schedule Needed</label>
+          <input type="text" id="dates" name="dates" placeholder="Dec 18–24 or Every Mon/Wed/Fri at 12pm">
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes / Special Requirements</label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Tell Anna about your pet's routine or any questions..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          Text Anna These Details
+        </button>
+        
+        <div id="formStatus" class="form-status"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p class="brand-name">Annabel's Pet Care</p>
+      <p class="footer-sub">Boutique Pet Sitting & Dog Walking • Park City & Heber Valley, Utah</p>
+      <p class="footer-contact"><a href="sms:+19139405855">(913) 940-5855</a></p>
+      <p class="copyright">&copy; 2026 Annabel's Pet Care.</p>
+    </div>
+  </footer>
+
+  <script src="../../../../script.js"></script>
+<div class="look" role="group" aria-label="Review: readability treatment">
+    <button type="button" data-l="card">Card</button>
+    <button type="button" data-l="scrim">Glow</button>
+  </div>
+<script src="../photos.js"></script>
+<script src="../../shared/lightbox.js"></script>
+<script>
+(function(){
+  var root=document.documentElement, params=new URLSearchParams(location.search);
+  if(params.get("chrome")==="0") root.classList.add("no-chrome");
+  root.setAttribute("data-look", params.get("look")||localStorage.getItem("pw-hero-look")||"card");
+  document.querySelectorAll(".look button").forEach(function(b){
+    b.classList.toggle("on",b.dataset.l===root.dataset.look);
+    b.onclick=function(){root.dataset.look=b.dataset.l;localStorage.setItem("pw-hero-look",b.dataset.l);document.querySelectorAll(".look button").forEach(function(x){x.classList.toggle("on",x===b)});};
+  });
+
+  var hero=document.getElementById("hero"), stage=document.getElementById("hwStage"), world=document.getElementById("hwWorld");
+  var photos=PW.photos, N=photos.length;
+  var small=matchMedia("(max-width:768px)").matches;
+  var CW=small?120:180, CH=Math.round(CW*1.25);
+  root.style.setProperty("--cw",CW+"px"); root.style.setProperty("--ch",CH+"px");
+  var V=Math.max(N,80), COLS=Math.ceil(Math.sqrt(V*1.4)), ROWS=Math.ceil(V/COLS);
+  function gcd(a,b){return b?gcd(b,a%b):a;} var MUL=[7,11,13,5,3,1].find(function(m){return gcd(m,N)===1;});
+  function photoAt(c,r){var cc=((c%COLS)+COLS)%COLS, rr=((r%ROWS)+ROWS)%ROWS; return ((rr*COLS+cc)*MUL)%N;}
+  function colOffset(c){return (((c%2)+2)%2)?CH/2:0;}
+
+  var x=-COLS*CW/3, y=-ROWS*CH/3, cells={}, pool=[], queue=[];
+  function W(){return hero.clientWidth;} function H(){return hero.clientHeight;}
+  function pump(){var t=performance.now();while(queue.length&&performance.now()-t<8){var im=queue.shift();if(!im.isConnected||im.src)continue;im.src=PW.thumb(photos[+im.dataset.i]);im.classList.add("in");}if(queue.length)PW.frame(pump);}
+  function render(){
+    world.style.transform="translate3d("+x+"px,"+y+"px,0)";
+    var c0=Math.floor(-x/CW)-1,c1=Math.ceil((W()-x)/CW)+1,r0=Math.floor(-y/CH)-2,r1=Math.ceil((H()-y)/CH)+1,seen={};
+    for(var c=c0;c<=c1;c++)for(var r=r0;r<=r1;r++){var k=c+","+r;seen[k]=1;if(cells[k])continue;
+      var el=pool.pop()||mk(), i=photoAt(c,r), im=el.firstChild;
+      el.style.left=(c*CW)+"px"; el.style.top=(r*CH+colOffset(c))+"px"; el.dataset.i=i;
+      im.classList.remove("in"); im.removeAttribute("src"); im.dataset.i=i;
+      if(photos[i]._thumb){im.src=photos[i]._thumb;im.classList.add("in");} else {queue.push(im); if(queue.length===1)PW.frame(pump);}
+      world.appendChild(el); cells[k]=el;}
+    for(var k2 in cells) if(!seen[k2]){cells[k2].remove();pool.push(cells[k2]);delete cells[k2];}
+  }
+  function mk(){var d=document.createElement("div");d.className="hw-cell";d.innerHTML='<img alt="" draggable="false">';return d;}
+
+  // Slow diagonal drift. Stops when: paused, dragging, lightbox open, hero off-screen, tab hidden, reduced motion.
+  var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var VX=-0.22, VY=-0.12, paused=reduced, visible=true, down=false, last=performance.now(), vx=0, vy=0;
+  new IntersectionObserver(function(es){visible=es[0].isIntersecting;},{threshold:0}).observe(hero);
+  function tick(now){var dt=Math.min(50,now-last);last=now;
+    if(visible&&!down){
+      if(Math.abs(vx)+Math.abs(vy)>.05){x+=vx;y+=vy;vx*=.94;vy*=.94;render();}
+      else if(!paused&&!document.querySelector(".pwlb.on")){x+=VX*dt/16;y+=VY*dt/16;render();}
+    }
+    PW.frame(tick);}
+
+  // Desktop: drag the wall anywhere outside the text. Phones: vertical swipes scroll the page (touch-action:pan-y), horizontal swipes pan.
+  var moved=0,lx=0,ly=0,lt=0;
+  stage.addEventListener("pointerdown",function(e){down=true;moved=0;lx=e.clientX;ly=e.clientY;lt=performance.now();vx=vy=0;stage.setPointerCapture(e.pointerId);stage.classList.add("drag");});
+  stage.addEventListener("pointermove",function(e){if(!down)return;var dx=e.clientX-lx,dy=e.pointerType==="touch"?0:e.clientY-ly,dt=Math.max(1,performance.now()-lt);
+    x+=dx;y+=dy;moved+=Math.abs(dx)+Math.abs(dy);vx=dx/dt*16;vy=dy/dt*16;lx=e.clientX;ly=e.clientY;lt=performance.now();render();});
+  function up(e){if(!down)return;down=false;stage.classList.remove("drag");
+    if(reduced){vx=vy=0;}
+    if(moved<6){vx=vy=0;var t=document.elementsFromPoint(e.clientX,e.clientY).find(function(n){return n.classList&&n.classList.contains("hw-cell");});if(t)PW.lightbox(photos,+t.dataset.i);}}
+  stage.addEventListener("pointerup",up); stage.addEventListener("pointercancel",function(){down=false;stage.classList.remove("drag");});
+
+  var pb=document.getElementById("hwPause");
+  function setPaused(p){paused=p;pb.innerHTML=p?"&#9654;":"&#10074;&#10074;";pb.setAttribute("aria-label",p?"Play the moving photos":"Pause the moving photos");}
+  pb.onclick=function(){setPaused(!paused);}; setPaused(paused);
+
+  addEventListener("resize",render);
+  render();
+  // Fade the wall in after the hero text has painted (keeps the text as the first thing people see / the LCP element).
+  setTimeout(function(){stage.classList.add("ready");},250);
+  PW.frame(tick);
+})();
+</script>
+<a class="cmp-back" href="../index.html" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;font:500 12px/1 ui-sans-serif,system-ui,sans-serif;background:rgba(43,37,39,.84);color:#fff;padding:9px 12px;border-radius:999px;text-decoration:none">&#9707; Compare 06 / 07</a>
+<script>if(new URLSearchParams(location.search).get("chrome")==="0")document.querySelector(".cmp-back").remove();</script>
+</body>
+</html>

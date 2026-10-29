@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Real photos: 06 Hero Wall vs 07 Still Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--rose:#B87383;--rose-d:#9E5B6B;--ink:#2B2527;--muted:#665E61;--cream:#FAF7F5;--line:#EBE1DC}
+  *{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font:400 15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+  header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;justify-content:space-between;padding:18px 24px 10px}
+  h1{font:600 28px/1.1 'Cormorant Garamond',Georgia,serif;margin:0} header p{margin:0;color:var(--muted);font-size:13px}
+  .mode{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px}
+  .mode button{all:unset;cursor:pointer;padding:6px 14px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted)}
+  .mode button.on{background:var(--rose);color:#fff}
+  main{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:6px 24px 30px}
+  figure{margin:0} figcaption{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px 8px}
+  figcaption b{font:600 22px/1 'Cormorant Garamond',Georgia,serif} figcaption a{color:var(--rose-d);font-weight:600;font-size:13px}
+  .frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 14px 34px -22px rgba(43,37,39,.4)}
+  .frame iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0}
+  body.phone .frame{margin:0 auto}
+  @media (max-width:900px){main{grid-template-columns:1fr}}
+</style></head><body>
+<header>
+  <div><h1>Real photos: 06 Hero Wall vs 07 Still Wall</h1>
+  <p>18 real client photos (location data stripped). Both frames are the whole homepage and scroll on their own. Not linked from the site, not indexed.</p></div>
+  <div class="mode" role="group" aria-label="Viewport"><button type="button" data-m="desktop" class="on">Desktop</button><button type="button" data-m="phone">Phone</button></div>
+</header>
+<main>
+  <figure><figcaption><b>06 Hero Wall</b><a href="06-hero-wall/index.html" target="_blank">Open full size &rarr;</a></figcaption><div class="frame"><iframe src="06-hero-wall/index.html?chrome=0" title="06 Hero Wall"></iframe></div></figure>
+  <figure><figcaption><b>07 Still Wall</b><a href="07-still-wall/index.html" target="_blank">Open full size &rarr;</a></figcaption><div class="frame"><iframe src="07-still-wall/index.html?chrome=0" title="07 Still Wall"></iframe></div></figure>
+</main>
+<script>
+  var mode="desktop", VP={desktop:[1440,900],phone:[390,844]};
+  function fit(){ document.body.classList.toggle("phone",mode==="phone");
+    document.querySelectorAll(".frame").forEach(function(f){ var vw=VP[mode][0], vh=VP[mode][1], avail=f.parentNode.clientWidth;
+      var s=Math.min(1,avail/vw); var i=f.querySelector("iframe"); i.style.width=vw+"px"; i.style.height=vh+"px"; i.style.transform="scale("+s+")";
+      f.style.width=(vw*s)+"px"; f.style.height=(vh*s)+"px"; }); }
+  document.querySelectorAll(".mode button").forEach(function(b){ b.onclick=function(){ mode=b.dataset.m;
+    document.querySelectorAll(".mode button").forEach(function(x){x.classList.toggle("on",x===b)}); fit(); }; });
+  addEventListener("resize",fit); fit();
+</script></body></html>

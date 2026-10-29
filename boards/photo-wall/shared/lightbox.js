@@ -44,8 +44,10 @@
   function show() {
     var p = list[idx];
     img.src = PW.full(p);
-    img.alt = "Placeholder photo: " + (p.kind === "dog" ? "a dog" : "a cat") + ", " + PW.caption(p);
-    cap.innerHTML = "<b>PLACEHOLDER</b>" + PW.caption(p);
+    // Real-photo builds set PW.badge = "" and PW.altPrefix; placeholder builds keep the PLACEHOLDER stamp.
+    var badge = PW.badge === undefined ? "PLACEHOLDER" : PW.badge;
+    img.alt = (PW.altPrefix || "Placeholder photo: ") + (p.kind === "dog" ? "a dog" : "a cat") + (PW.caption(p) ? ", " + PW.caption(p) : "");
+    cap.innerHTML = (badge ? "<b>" + badge + "</b>" : "") + PW.caption(p);
   }
   function step(d) { idx = (idx + d + list.length) % list.length; show(); }
   function close() { el.classList.remove("on"); if (lastFocus) lastFocus.focus(); if (PW.onLightboxClose) PW.onLightboxClose(); }
